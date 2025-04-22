@@ -1,0 +1,9 @@
+{
+    "info": { "name": "Simple Django Project", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+    "item": [
+      { "name": "Request Mobile", "request": { "method": "POST", "url": "{{base_url}}/api/auth/mobile/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\" }" } } },
+      { "name": "Verify Code", "request": { "method": "POST", "url": "{{base_url}}/api/auth/verify-code/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"code\": \"123456\" }" } } },
+      { "name": "Complete Registration", "request": { "method": "POST", "url": "{{base_url}}/api/auth/complete-registration/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"full_name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"secret\" }" } } },
+      { "name": "Login", "request": { "method": "POST", "url": "{{base_url}}/api/auth/login/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"password\": \"secret\" }" } } }
+    ]
+  }
