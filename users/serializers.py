@@ -13,6 +13,8 @@ class CodeVerifySerializer(serializers.Serializer):
     code = serializers.CharField(max_length=6)
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+
     class Meta:
         model = User
-        fields = ['mobile', 'full_name', 'email']
+        fields = ['mobile', 'full_name', 'email', 'password']

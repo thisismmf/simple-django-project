@@ -1,9 +1,76 @@
 {
-    "info": { "name": "Simple Django Project", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+    "info": {
+      "name": "Simple Django Project",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
     "item": [
-      { "name": "Request Mobile", "request": { "method": "POST", "url": "{{base_url}}/api/auth/mobile/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\" }" } } },
-      { "name": "Verify Code", "request": { "method": "POST", "url": "{{base_url}}/api/auth/verify-code/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"code\": \"123456\" }" } } },
-      { "name": "Complete Registration", "request": { "method": "POST", "url": "{{base_url}}/api/auth/complete-registration/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"full_name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"secret\" }" } } },
-      { "name": "Login", "request": { "method": "POST", "url": "{{base_url}}/api/auth/login/", "body": { "mode": "raw", "raw": "{ \"mobile\": \"+1234567890\", \"password\": \"secret\" }" } } }
+      {
+        "name": "1. Request Mobile",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": "{{base_url}}/api/auth/mobile/",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"mobile\": \"+1234567890\"\n}"
+          }
+        }
+      },
+      {
+        "name": "2. Verify Code",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": "{{base_url}}/api/auth/verify-code/",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"mobile\": \"+1234567890\",\n  \"code\": \"123456\"\n}"
+          }
+        }
+      },
+      {
+        "name": "3. Complete Registration",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": "{{base_url}}/api/auth/complete-registration/",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"mobile\": \"+1234567890\",\n  \"full_name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"secret\"\n}"
+          }
+        }
+      },
+      {
+        "name": "4. Login",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": "{{base_url}}/api/auth/login/",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"mobile\": \"+1234567890\",\n  \"password\": \"secret\"\n}"
+          }
+        }
+      }
     ]
   }

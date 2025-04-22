@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class UserManager(BaseUserManager):
     def create_user(self, mobile, password=None, **extra_fields):
@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(mobile, password, **extra_fields)
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     mobile = models.CharField(max_length=15, unique=True)
     full_name = models.CharField(max_length=100, blank=True)
     email = models.EmailField(blank=True)
@@ -34,4 +34,4 @@ class OneTimeCode(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.mobile} - {self.code}"
+        return f"{self.user.mobile} - {self.code}" 

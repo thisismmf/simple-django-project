@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import MobileView, CodeVerifyView, CompleteRegistrationView, LoginView
+# Import views from the current app (users)
+from . import views
 
+# Use URL names consistent with the tests
 urlpatterns = [
-    path('mobile/', MobileView.as_view()),
-    path('verify-code/', CodeVerifyView.as_view()),
-    path('complete-registration/', CompleteRegistrationView.as_view()),
-    path('login/', LoginView.as_view()),
+    path('mobile/', views.MobileView.as_view(), name='mobileview'),
+    path('verify-code/', views.CodeVerifyView.as_view(), name='verifycode'),
+    path('complete-registration/', views.CompleteRegistrationView.as_view(), name='completeregistration'),
+    path('login/', views.LoginView.as_view(), name='login'),
 ]

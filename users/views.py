@@ -1,4 +1,3 @@
-from django.shortcuts import render
 import random
 from django.utils import timezone
 from django.core.cache import cache
@@ -60,13 +59,24 @@ class CodeVerifyView(APIView):
 
 class CompleteRegistrationView(APIView):
     def post(self, request):
-        serializer = RegistrationSerializer(data=request.data)
+        # Get mobile from request data directly
+        mobile = request.data.get('mobile')
+        if not mobile:
+            return Response({'detail': 'Mobile number is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(mobile=mobile)
+        except User.DoesNotExist:
+            return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Pass the user instance to the serializer to update it
+        serializer = RegistrationSerializer(user, data=request.data, partial=True) # Use partial=True if needed
         serializer.is_valid(raise_exception=True)
-        mobile = serializer.validated_data['mobile']
-        user = User.objects.get(mobile=mobile)
+
         user.full_name = serializer.validated_data['full_name']
         user.email = serializer.validated_data['email']
-        user.set_password(request.data.get('password', ''))
+        # Set password using the validated data
+        user.set_password(serializer.validated_data['password'])
         user.save()
         return Response({ 'detail': 'Registration complete.' })
 
@@ -83,8 +93,10 @@ class LoginView(APIView):
             key = f"login_fail_{ip}"
             count = cache.get(key, 0) + 1
             cache.set(key, count, timeout=3600)
+            # block on third failure
             if count >= 3:
                 cache.set(f"blocked_{ip}", True, timeout=3600)
+                return Response({ 'detail': 'Invalid credentials.' }, status=429)
             return Response({ 'detail': 'Invalid credentials.' }, status=400)
 
         cache.delete(f"login_fail_{ip}")
